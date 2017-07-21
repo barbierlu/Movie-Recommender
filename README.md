@@ -1,4 +1,4 @@
-# Something
+# Movie Recommender
 **Author: Luke Barbier**
 
 ## Summary
