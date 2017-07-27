@@ -11,6 +11,10 @@ MovieGraph::MovieGraph()
 
 MovieGraph::~MovieGraph()
 {
+  for (int i = 0; i < vertices.size(); i++)
+  {
+    vertices[i].adj.clear();
+  }
   vertices.clear();
   std::cout << "Graph Deleted" << std::endl;
 }
