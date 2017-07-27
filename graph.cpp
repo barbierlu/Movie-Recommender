@@ -76,11 +76,14 @@ void MovieGraph::computeEdgeAvgs()
   float ratings;
   for(int i = 0; i < vertices.size(); i++)
   {
+    std::cout << "Avg of "<<vertices[i].title<<":"<<std::endl;
     for(int j = 0; j < vertices[i].adj.size(); j++)
     {
+      std::cout << vertices[i].adj[j].mv->title<<" ";
       ratings = vertices[i].adj[j].adjRatings;
       numRaters = vertices[i].adj[j].adjNumRaters;
       vertices[i].adj[j].adjAvgRating = ratings / numRaters;
+      std::cout << vertices[i].adj[j].adjAvgRating << std::endl;
     }
   }
 }

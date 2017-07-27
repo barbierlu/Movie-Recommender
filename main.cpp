@@ -157,12 +157,13 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
   vector<float> userOtherRatings;
 
   getline(*csv, s); // disregard first line
+  cout << "s:"<<s<<endl;
   while(true)
     {
     getline(*csv, s, '\n');
     if(s == prev || s=="") // check for last line
       break;
-    if(counter++ == 1000) // 7,3
+    if(counter++ == 10) // 7,3 (1000)
       break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
@@ -172,8 +173,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     userId = stoi(userId_s);
     movieId = stoi(movieId_s);
     rating = stof(rating_s);
-    cout << userId << " " << movieId << " "
-    << rating << "." << endl;
+    // cout << userId << " " << movieId << " "
+    // << rating << "." << endl;
 
     MovieVertex * mv = graph->findMovieVertexId(movieId);
     if(mv == nullptr)
@@ -181,19 +182,27 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       cout << "[ERROR] " << movieId << " not found."<<endl;
       return false;
     }
+    cout << userId << " rated "<<mv->title <<"."<< endl;
 
     if(prevUserId == userId)
+    {
       sameUser = true;
+      cout << "same user" <<endl;
+    }
     else
+    {
       sameUser = false;
+      cout << "diff user" << endl;
+    }
 
-    MovieVertex * mv2;
     if (sameUser) // link that movie to all the other ones
     {
       for (int i = 0; i < userOtherVertices.size(); i++)
       {
         graph->insertMovieEdge(mv, rating,
           &(userOtherVertices[i]), userOtherRatings[i]);
+        cout << "linked:" << mv->title <<". to:"<<
+          userOtherVertices[i].title<<"."<<endl;
       }
       userOtherVertices.push_back(*mv);
       userOtherRatings.push_back(rating);
@@ -202,10 +211,13 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     { // delete vectors
       userOtherVertices.clear();
       userOtherRatings.clear();
+      cout << "deleted vectors:"<<
+      userOtherVertices.empty()<<" "<<
+      userOtherRatings.empty()<<endl;
     }
     prev = s;
   }
-  graph->computeEdgeAvgs();
+  // graph->computeEdgeAvgs();
   return true;
 }
 
