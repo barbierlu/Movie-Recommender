@@ -26,6 +26,9 @@ void MovieGraph::insertMovieVertex(std::string title, int id)
 void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   MovieVertex * mv2, float rating2)
 {
+  std::cout << "insertingEdge" << std::endl;
+  std::cout << "mv1:"<<mv1->title<<std::endl;
+  std::cout << "mv2:"<<mv2->title<<std::endl;
   // rating 1 is a new rating
   totalRatings += rating1;
   totalNumRatings++;
@@ -48,6 +51,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   if (found == true) // edge already exists
   {
     // add to the edges
+    std::cout << "edge already exists"<<std::endl;
     (mv1->adj[i].adjNumRaters)++;
     mv1->adj[i].adjRatings += rating2;
     (mv2->adj[j].adjNumRaters)++;
@@ -74,16 +78,16 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
     mv2->adj.push_back(adj2);
     numEdges++;
   }
-  printAdjs(mv1);
-  printAdjs(mv2);
 }
 
 void MovieGraph::printAdjs(MovieVertex * mv)
 {
+  std::cout << "**Printing Linkages of " << mv->title << std::endl;
   for(int i = 0; i < mv->adj.size(); i++)
   {
     std::cout << mv->title<<" linked to "<<mv->adj[i].mv->title << std::endl;
   }
+  std::cout << "Ending linkage printing**"<<std::endl;
 }
 
 void MovieGraph::computeEdgeAvgs()

@@ -160,6 +160,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
   cout << "s:"<<s<<endl;
   while(true)
     {
+    std::cout << std::endl <<std::endl<< "NEW RATING"
+    << std::endl << std::endl;
     getline(*csv, s, '\n');
     cout << "s:"<<s<<endl;
     if(s == prev || s=="") // check for last line
@@ -198,6 +200,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
 
     if (sameUser) // link that movie to all the other ones
     {
+      cout<<"userOtherVertices Size: "<<userOtherVertices.size()<<endl;
       for (int i = 0; i < userOtherVertices.size(); i++)
       {
         graph->insertMovieEdge(mv, rating,
@@ -218,6 +221,11 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     }
     prev = s;
     prevUserId = userId;
+    std::cout << std::endl;
+    for(int y = 0; y < userOtherVertices.size();y++)
+    {
+      graph->printAdjs(&userOtherVertices[y]);
+    }
   }
   // graph->computeEdgeAvgs();
   return true;
