@@ -55,7 +55,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   if (found == true) // edge already exists
   {
     // add to the edges
-    std::cout << "edge already exists"<<std::endl;
+    // std::cout << "edge already exists"<<std::endl;
     (mv1->adj[i].adjNumRaters)++;
     mv1->adj[i].adjRatings += rating2;
     (mv2->adj[j].adjNumRaters)++;
@@ -104,14 +104,14 @@ void MovieGraph::computeEdgeAvgs()
   float ratings;
   for(int i = 0; i < vertices.size(); i++)
   {
-    std::cout << "Avg of "<<vertices[i].title<<":"<<std::endl;
+    // std::cout << "Avg of "<<vertices[i].title<<":"<<std::endl;
     for(int j = 0; j < vertices[i].adj.size(); j++)
     {
-      std::cout << vertices[i].adj[j].mv->title<<" ";
+      // std::cout << vertices[i].adj[j].mv->title<<" ";
       ratings = vertices[i].adj[j].adjRatings;
       numRaters = vertices[i].adj[j].adjNumRaters;
       vertices[i].adj[j].adjAvgRating = ratings / numRaters;
-      std::cout << vertices[i].adj[j].adjAvgRating << std::endl;
+      // std::cout << vertices[i].adj[j].adjAvgRating << std::endl;
     }
   }
 }
@@ -178,7 +178,7 @@ void MovieGraph::printEdges()
   <<std::endl<<std::endl;
   for(int i = 0; i < vertices.size(); i++)
   {
-    std::cout << std::endl << vertices[i].title
+    std::cout << vertices[i].title
     << " V: "<< vertices[i].adj.size() <<std::endl;
     for(int j = 0; j < vertices[i].adj.size();j++)
     {
