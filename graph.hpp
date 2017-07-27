@@ -40,6 +40,7 @@ public:
   MovieVertex * findMovieVertexId(int id);
   MovieVertex * findMovieVertexTitle(std::string title);
   void printMovieGraph();
+  void printEdges();
   unsigned long int getNumMovies();
   unsigned long int getNumEdges();
   void computeEdgeAvgs();

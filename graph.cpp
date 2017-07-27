@@ -122,3 +122,17 @@ MovieVertex * MovieGraph::findMovieVertexTitle(std::string title)
   }
   return nullptr;
 }
+
+void MovieGraph::printEdges()
+{
+  std::cout << std::endl << std::endl << "Printing Movie Graph Edges"
+  <<std::endl<<std::endl;
+  for(int i = 0; i < vertices.size(); i++)
+  {
+    std::cout << "**" << vertices[i].title << "**" <<std::endl;
+    for(int j = 0; j < vertices[i].adj.size();j++)
+    {
+      std::cout << vertices[i].adj[j].mv->title << std::endl;
+    }
+  }
+}
