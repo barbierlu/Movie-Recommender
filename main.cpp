@@ -215,6 +215,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       cout << "deleted vectors:"<<
       userOtherVertices.empty()<<" "<<
       userOtherRatings.empty()<<endl;
+      userOtherVertices.push_back(*mv);
+      userOtherRatings.push_back(rating);
     }
     prev = s;
     prevUserId = userId;
