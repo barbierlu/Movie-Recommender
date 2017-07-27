@@ -192,7 +192,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       for (int i = 0; i < userOtherVertices.size(); i++)
       {
         graph->insertMovieEdge(mv, rating,
-          &(userOtherVertices[i]), &(userOtherRatings[i]));
+          &(userOtherVertices[i]), userOtherRatings[i]);
       }
       userOtherVertices.push_back(*mv);
       userOtherRatings.push_back(rating);
@@ -224,7 +224,7 @@ int main(int argc, char * argv[])
   MovieGraph * graph = new MovieGraph();
   processMoviesCSV(graph, &movies);
   bool rv = processRatingsCSV(graph, &ratings);
-  if (rv == nullptr) {graph->~MovieGraph(); return -1;}
+  if (rv == false) {graph->~MovieGraph(); return -1;}
   cout << "finished." << endl;
   bool on = true;
   while(on)

@@ -69,7 +69,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   }
 }
 
-void computeEdgeAvgs()
+void MovieGraph::computeEdgeAvgs()
 {
   int numRaters;
   float ratings;
