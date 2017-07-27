@@ -140,7 +140,7 @@ void processMoviesCSV(MovieGraph * graph, ifstream * csv)
   }
 }
 
-void processRatingsCSV(MovieGraph * graph, ifstream * csv)
+bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
 {
   int counter = 0;
   string s,s1,s2,prev; // helper parsing strings
@@ -150,8 +150,10 @@ void processRatingsCSV(MovieGraph * graph, ifstream * csv)
   float rating;
 
   bool sameUser = false;
-  vector<int> movieIds_v;
-  vector<float> ratings_v;
+
+  // other movies the user has rated
+  vector<MovieVertex> userOtherVertices;
+  vector<float> userOtherRatings;
 
   getline(*csv, s); // disregard first line
   while(true)
@@ -172,30 +174,38 @@ void processRatingsCSV(MovieGraph * graph, ifstream * csv)
     cout << userId << " " << movieId << " "
     << rating << "." << endl;
 
-    // find the movie?
+    MovieVertex * mv = graph->findMovieVertexId(movieId);
+    if(mv == nullptr)
+    {
+      cout << "[ERROR] " << movieId << " not found."<<endl;
+      return false;
+    }
 
     if(prevUserId == userId)
       sameUser = true;
     else
       sameUser = false;
 
+    MovieVertex * mv2;
     if (sameUser) // link that movie to all the other ones
     {
-      for (int i = 0; i < movieIds_v.size(); i++)
+      for (int i = 0; i < userOtherVertices.size(); i++)
       {
-        // use red black tree in order to locate
+        graph->insertMovieEdge(mv, rating,
+          &(userOtherVertices[i]), &(userOtherRatings[i]));
       }
-      movieIds_v.push_back(movieId);
-      ratings_v.push_back(rating);
+      userOtherVertices.push_back(*mv);
+      userOtherRatings.push_back(rating);
     }
     else
     { // delete vectors
-      movieIds_v.clear();
-      ratings_v.clear();
+      userOtherVertices.clear();
+      userOtherRatings.clear();
     }
-
     prev = s;
   }
+  graph->computeEdgeAvgs();
+  return true;
 }
 
 void printStats(MovieGraph * graph)
@@ -213,7 +223,8 @@ int main(int argc, char * argv[])
   askRatingsCSV(&ratings);
   MovieGraph * graph = new MovieGraph();
   processMoviesCSV(graph, &movies);
-  processRatingsCSV(graph, &ratings);
+  bool rv = processRatingsCSV(graph, &ratings);
+  if (rv == nullptr) {graph->~MovieGraph(); return -1;}
   cout << "finished." << endl;
   bool on = true;
   while(on)

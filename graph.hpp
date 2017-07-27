@@ -25,7 +25,7 @@ struct MovieVertex{
 struct AdjMovieVertex{
   MovieVertex * mv;
   int adjNumRaters;
-  int adjNumRatings;
+  float adjRatings; // sum of all ratings of common users between vertices
   int adjAvgRating;
 };
 
@@ -35,13 +35,20 @@ public:
   MovieGraph();
   ~MovieGraph();
   void insertMovieVertex(std::string title, int id);
-  void insertMovieEdge(MovieVertex * mv1, int rating1,
-    MovieVertex * mv2, int rating2);
+  void insertMovieEdge(MovieVertex * mv1, float rating1,
+    MovieVertex * mv2, float rating2);
+  MovieVertex * findMovieVertexId(int id);
+  MovieVertex * findMovieVertexTitle(std::string title);
   void printMovieGraph();
   unsigned long int getNumMovies();
+  unsigned long int getNumEdges();
+  void computeEdgeAvgs();
 private:
   std::vector<MovieVertex> vertices;
   unsigned long int numMovies;
+  unsigned long int numEdges;
+  double totalRatings;
+  unsigned long int totalNumRatings;
 };
 
 #endif
