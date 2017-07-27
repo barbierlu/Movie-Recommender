@@ -198,7 +198,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       cout << "new user " << userId << endl;
     }
 
-    if (sameUser) // link that movie to all the other ones
+    if (sameUser && rating > 4.0) // link that movie to all the other ones
     {
       // cout<<"userOtherVertices Size: "<<userOtherVertices.size()<<endl;
       for (int i = 0; i < userOtherVertices.size(); i++)
@@ -216,8 +216,11 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       // cout << "deleted vectors:"<<
       // userOtherVertices.empty()<<" "<<
       // userOtherRatings.empty()<<endl;
-      userOtherVertices.push_back(mv);
-      userOtherRatings.push_back(rating);
+      if(rating > 4.0)
+      {
+        userOtherVertices.push_back(mv);
+        userOtherRatings.push_back(rating);
+      }
     }
     prev = s;
     prevUserId = userId;
