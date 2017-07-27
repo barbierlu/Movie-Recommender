@@ -55,6 +55,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   }
   else // make the new edge
   {
+    std::cout << "Creating New Edges" << std::endl;
     AdjMovieVertex adj1;
     adj1.mv = mv2;
     adj1.adjNumRaters = 1;
@@ -65,6 +66,8 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
     adj2.adjRatings = rating1;
     mv1->adj.push_back(adj1);
     mv2->adj.push_back(adj2);
+    std::cout << mv1->adj.back().mv->title << std::endl;
+    std::cout << mv2->adj.back().mv->title << std::endl;
     numEdges++;
   }
 }
@@ -85,6 +88,23 @@ void MovieGraph::computeEdgeAvgs()
       vertices[i].adj[j].adjAvgRating = ratings / numRaters;
       std::cout << vertices[i].adj[j].adjAvgRating << std::endl;
     }
+  }
+}
+
+void MovieGraph::printMovieInfo(std::string title)
+{
+  MovieVertex * mv = findMovieVertexTitle(title);
+  std::cout << "Title:"<<mv->title<<" "<<mv->movieId<<std::endl;
+  std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
+  std::cout << "totalRatings: " << mv->totalRatings<<std::endl;
+  std::cout << "totalAvgRating: " << mv->totalAvgRating<<std::endl;
+  std::cout << "Linkings:"<<std::endl;
+  for(int i = 0; i < mv->adj.size();i++)
+  {
+    std::cout << mv->adj[i].mv->title <<
+    " (N:" << mv->adj[i].adjNumRaters <<
+    " R:" << mv->adj[i].adjRatings <<
+    " A:" << mv->adj[i].adjAvgRating << ")"<<std::endl;
   }
 }
 

@@ -164,7 +164,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     cout << "s:"<<s<<endl;
     if(s == prev || s=="") // check for last line
       break;
-    if(counter++ == 10) // 7,3 (1000)
+    if(counter++ == 5) // 7,3 (1000)
       break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
@@ -230,6 +230,12 @@ void printStats(MovieGraph * graph)
   cout << "Number of Movies: " << graph->getNumMovies() << endl;
 }
 
+void printMovieInfo(MovieGraph * g)
+{
+  cout << "Enter Movie Title" << endl;
+  g->printMovieInfo(getCinString());
+}
+
 int main(int argc, char * argv[])
 {
   if(argc != 1)
@@ -260,6 +266,7 @@ int main(int argc, char * argv[])
         printStats(graph);
         break;
       case 5:
+        printMovieInfo(graph);
         break;
       case 6:
         on = false;
