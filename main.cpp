@@ -39,12 +39,13 @@ int mainMenuSelect(void)
     std::cout << "======Main Menu======" << std::endl;
     std::cout << "1. Recommend a movie" << std::endl;
     std::cout << "2. Print movie list" << std::endl;
-    std::cout << "3. See statistics" << std::endl;
+    std::cout << "3. Print connection list" << std::endl;
+    std::cout << "4. See statistics" << std::endl;
       // Num raters, num movies, avg rating,
-    std::cout << "4. See a movie's info" << std::endl;
-    std::cout << "5. Quit" << std::endl;
+    std::cout << "5. See a movie's info" << std::endl;
+    std::cout << "6. Quit" << std::endl;
     std::cin >> sel;
-    if(sel > 0 && sel < 6)
+    if(sel > 0 && sel < 7)
       return sel;
     else
       std::cout << std::endl <<"***** Invalid Input *****"
@@ -161,8 +162,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     getline(*csv, s, '\n');
     if(s == prev || s=="") // check for last line
       break;
-    if(counter++ == 200)
-      break;
+    // if(counter++ == 200)
+    //   break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
     s2 = s1.substr(0, s1.rfind(','));
@@ -237,11 +238,14 @@ int main(int argc, char * argv[])
         graph->printMovieGraph();
         break;
       case 3:
-        printStats(graph);
+        graph->printEdges();
         break;
       case 4:
+        printStats(graph);
         break;
       case 5:
+        break;
+      case 6:
         on = false;
         break;
       default: cout << "Unrecognized Input" << endl;
