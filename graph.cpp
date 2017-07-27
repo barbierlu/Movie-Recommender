@@ -60,15 +60,28 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
     adj1.mv = mv2;
     adj1.adjNumRaters = 1;
     adj1.adjRatings = rating2;
+    adj1.adjAvgRating = 0;
     AdjMovieVertex adj2;
     adj2.mv = mv1;
     adj2.adjNumRaters = 1;
     adj2.adjRatings = rating1;
+    adj2.adjAvgRating = 0;
     mv1->adj.push_back(adj1);
     mv2->adj.push_back(adj2);
     std::cout << mv1->adj.back().mv->title << std::endl;
     std::cout << mv2->adj.back().mv->title << std::endl;
     numEdges++;
+  }
+  printAdjs(mv1);
+  printAdjs(mv2);
+}
+
+void MovieGraph::printAdjs(MovieVertex * mv)
+{
+  std::cout << mv->title << " linked to: " <<mv->adj.size()<< std::endl;
+  for(int i = 0; i < mv->adj.size(); i++)
+  {
+    std::cout << mv->adj[i].mv->title << std::endl;
   }
 }
 
