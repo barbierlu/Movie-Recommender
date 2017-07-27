@@ -166,7 +166,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     cout << "s:"<<s<<endl;
     if(s == prev || s=="") // check for last line
       break;
-    if(counter++ == 5) // 7,3 (1000)
+    if(counter++ == 50) // 7,3 (1000)
       break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
@@ -222,12 +222,12 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     prev = s;
     prevUserId = userId;
     std::cout << std::endl;
-    for(int y = 0; y < userOtherVertices.size();y++)
-    {
-      graph->printAdjs(userOtherVertices[y]);
-    }
   }
   // graph->computeEdgeAvgs();
+  for(int y = 0; y < userOtherVertices.size();y++)
+  {
+    graph->printAdjs(userOtherVertices[y]);
+  }
   return true;
 }
 
