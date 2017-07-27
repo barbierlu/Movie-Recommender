@@ -46,6 +46,7 @@ public:
   void computeEdgeAvgs();
   void printMovieInfo(std::string title);
   void printAdjs(MovieVertex * mv);
+  unsigned long int numUsers;
 private:
   std::vector<MovieVertex> vertices;
   unsigned long int numMovies;

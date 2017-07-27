@@ -7,6 +7,7 @@ MovieGraph::MovieGraph()
   std::cout << "Graph Initialized" << std::endl;
   numMovies = 0;
   numEdges = 0;
+  numUsers = 0;
 }
 
 MovieGraph::~MovieGraph()
@@ -126,10 +127,13 @@ void MovieGraph::printMovieInfo(std::string title)
   std::cout << "Linkings: "<< mv->adj.size()<<std::endl;
   for(int i = 0; i < mv->adj.size();i++)
   {
-    std::cout << mv->adj[i].mv->title <<
-    " (N:" << mv->adj[i].adjNumRaters <<
-    " R:" << mv->adj[i].adjRatings <<
-    " A:" << mv->adj[i].adjAvgRating << ")"<<std::endl;
+    if (mv->adj[i].adjNumRaters > 2)
+    {
+      std::cout << mv->adj[i].mv->title <<
+      " (N:" << mv->adj[i].adjNumRaters <<
+      " R:" << mv->adj[i].adjRatings <<
+      " A:" << mv->adj[i].adjAvgRating << ")"<<std::endl;
+    }
   }
 }
 
