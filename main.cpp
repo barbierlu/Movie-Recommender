@@ -202,8 +202,6 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       {
         graph->insertMovieEdge(mv, rating,
           &(userOtherVertices[i]), userOtherRatings[i]);
-        cout << "linked:" << mv->title <<". to:"<<
-          userOtherVertices[i].title<<"."<<endl;
       }
       userOtherVertices.push_back(*mv);
       userOtherRatings.push_back(rating);
