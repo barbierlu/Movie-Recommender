@@ -98,7 +98,7 @@ void MovieGraph::printMovieInfo(std::string title)
   std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
   std::cout << "totalRatings: " << mv->totalRatings<<std::endl;
   std::cout << "totalAvgRating: " << mv->totalAvgRating<<std::endl;
-  std::cout << "Linkings:"<<std::endl;
+  std::cout << "Linkings: "<< mv->adj.size()<<std::endl;
   for(int i = 0; i < mv->adj.size();i++)
   {
     std::cout << mv->adj[i].mv->title <<
