@@ -153,7 +153,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
   bool sameUser = false;
 
   // other movies the user has rated
-  vector<MovieVertex> userOtherVertices;
+  vector<MovieVertex*> userOtherVertices;
   vector<float> userOtherRatings;
 
   getline(*csv, s); // disregard first line
@@ -204,9 +204,9 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       for (int i = 0; i < userOtherVertices.size(); i++)
       {
         graph->insertMovieEdge(mv, rating,
-          &(userOtherVertices[i]), userOtherRatings[i]);
+          userOtherVertices[i], userOtherRatings[i]);
       }
-      userOtherVertices.push_back(*mv);
+      userOtherVertices.push_back(mv);
       userOtherRatings.push_back(rating);
     }
     else
@@ -216,7 +216,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       cout << "deleted vectors:"<<
       userOtherVertices.empty()<<" "<<
       userOtherRatings.empty()<<endl;
-      userOtherVertices.push_back(*mv);
+      userOtherVertices.push_back(mv);
       userOtherRatings.push_back(rating);
     }
     prev = s;
@@ -224,7 +224,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     std::cout << std::endl;
     for(int y = 0; y < userOtherVertices.size();y++)
     {
-      graph->printAdjs(&userOtherVertices[y]);
+      graph->printAdjs(userOtherVertices[y]);
     }
   }
   // graph->computeEdgeAvgs();

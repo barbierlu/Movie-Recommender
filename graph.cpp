@@ -60,29 +60,32 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, float rating1,
   else // make the new edge
   {
     std::cout << "Creating New Edges" << std::endl;
-    AdjMovieVertex adj1;
+    AdjMovieVertex adj1, adj2;
     adj1.mv = mv2;
     adj1.adjNumRaters = 1;
     adj1.adjRatings = rating2;
     adj1.adjAvgRating = 0;
-    AdjMovieVertex adj2;
     adj2.mv = mv1;
     adj2.adjNumRaters = 1;
     adj2.adjRatings = rating1;
     adj2.adjAvgRating = 0;
-    std::cout << mv1->title<<" empty? " << mv1->adj.empty() << std::endl;
-    std::cout << mv2->title<<" empty? " << mv2->adj.empty() << std::endl;
-    // std::cout << "Linking:"<<mv1->adj.back().mv->title << std::endl;
-    // std::cout << "Linking:"<<mv2->adj.back().mv->title << std::endl;
+    // std::cout << mv1->title<<" empty? " << mv1->adj.empty() << std::endl;
+    // std::cout << mv2->title<<" empty? " << mv2->adj.empty() << std::endl;
     mv1->adj.push_back(adj1);
     mv2->adj.push_back(adj2);
+    std::cout << mv1->title << " linked: "<<mv1->adj.back().mv->title << std::endl;
+    std::cout << mv2->title << " linked: "<<mv2->adj.back().mv->title << std::endl;
+    if(mv1->adj.size() == 1)
+      std::cout << mv1->title << " first adj:" << mv1->adj[0].mv->title << std::endl;
     numEdges++;
   }
+
 }
 
 void MovieGraph::printAdjs(MovieVertex * mv)
 {
-  std::cout << "**Printing Linkages of " << mv->title << std::endl;
+  std::cout << "**Printing Linkages of " << mv->title <<
+  " ("<<mv->adj.size()<<")"<<std::endl;
   for(int i = 0; i < mv->adj.size(); i++)
   {
     std::cout << mv->title<<" linked to "<<mv->adj[i].mv->title << std::endl;
