@@ -141,7 +141,7 @@ void processMoviesCSV(MovieGraph * graph, ifstream * csv)
   }
 }
 
-bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
+bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
 {
   int counter = 0;
   string s,s1,s2,prev; // helper parsing strings
@@ -166,8 +166,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     // cout << "s:"<<s<<endl;
     if(s == prev || s=="") // check for last line
       break;
-    // if(counter++ == 1000) // 7,3 (1000)
-    //   break;
+    if(counter == numRaters) // 7,3 (1000)
+      break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
     s2 = s1.substr(0, s1.rfind(','));
@@ -197,6 +197,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       sameUser = false;
       cout << "new user " << userId << endl;
       graph->numUsers++;
+      counter++;
     }
 
     if(rating == 5.0)
@@ -264,6 +265,19 @@ void recommendMovie(MovieGraph * g)
   cout << "Recommended Movie: " << rec->title << endl;
 }
 
+int askNumRatings()
+{
+  cout << "Enter number of users to analyze (1 - 138493)"<<
+   "or enter 'all'" << endl;
+  string s = getCinString();
+  if(s == "all")
+    return 138493;
+  else
+  {
+    return stoi(s);
+  }
+}
+
 int main(int argc, char * argv[])
 {
   if(argc != 1)
@@ -273,8 +287,9 @@ int main(int argc, char * argv[])
   askMoviesCSV(&movies);
   askRatingsCSV(&ratings);
   MovieGraph * graph = new MovieGraph();
+  int numRaters = askNumRatings();
   processMoviesCSV(graph, &movies);
-  bool rv = processRatingsCSV(graph, &ratings);
+  bool rv = processRatingsCSV(graph, &ratings, numRaters);
   if (rv == false) {graph->~MovieGraph(); return -1;}
   cout << "finished." << endl;
   bool on = true;
