@@ -190,3 +190,16 @@ void MovieGraph::printEdges()
     }
   }
 }
+
+MovieVertex * MovieGraph::findSimilar(MovieVertex * mv)
+{
+  if(mv->adj.size() == 0) return nullptr;
+
+  int hI = 0; // Index of largest number of raters
+  for (int i = 0; i < mv->adj.size(); i++)
+  {
+    if(mv->adj[hI].adjNumRaters > mv->adj[i].adjNumRaters)
+      hI = i;
+  }
+  return mv->adj[hI].mv;
+}

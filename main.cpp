@@ -251,6 +251,19 @@ void printMovieInfo(MovieGraph * g)
   g->printMovieInfo(getCinString());
 }
 
+void recommendMovie(MovieGraph * g)
+{
+  cout << "Enter your favorite movie" << endl;
+  MovieVertex * mv = g->findMovieVertexTitle(getCinString());
+  if(mv == nullptr)
+  {
+    cout << "Movie not found" << endl;
+    return;
+  }
+  MovieVertex * rec = g->findSimilar(mv);
+  cout << "Recommended Movie: " << rec->title << endl;
+}
+
 int main(int argc, char * argv[])
 {
   if(argc != 1)
@@ -270,6 +283,7 @@ int main(int argc, char * argv[])
     switch(mainMenuSelect())
     {
       case 1:
+        recommendMovie(graph);
         break;
       case 2: cout << "Printing Graph" << endl;
         graph->printMovieGraph();
