@@ -162,8 +162,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     getline(*csv, s, '\n');
     if(s == prev || s=="") // check for last line
       break;
-    // if(counter++ == 200)
-    //   break;
+    if(counter++ == 1000) // 7,3
+      break;
     s1 = s.substr(0, s.rfind(','));
     rating_s = s1.substr(s1.rfind(',')+1);
     s2 = s1.substr(0, s1.rfind(','));
@@ -172,8 +172,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     userId = stoi(userId_s);
     movieId = stoi(movieId_s);
     rating = stof(rating_s);
-    // cout << userId << " " << movieId << " "
-    // << rating << "." << endl;
+    cout << userId << " " << movieId << " "
+    << rating << "." << endl;
 
     MovieVertex * mv = graph->findMovieVertexId(movieId);
     if(mv == nullptr)
