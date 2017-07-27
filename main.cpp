@@ -161,6 +161,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
   while(true)
     {
     getline(*csv, s, '\n');
+    cout << "s:"<<s<<endl;
     if(s == prev || s=="") // check for last line
       break;
     if(counter++ == 10) // 7,3 (1000)
@@ -173,8 +174,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     userId = stoi(userId_s);
     movieId = stoi(movieId_s);
     rating = stof(rating_s);
-    // cout << userId << " " << movieId << " "
-    // << rating << "." << endl;
+    cout << userId << " " << movieId << " "
+    << rating << "." << endl;
 
     MovieVertex * mv = graph->findMovieVertexId(movieId);
     if(mv == nullptr)
@@ -192,7 +193,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
     else
     {
       sameUser = false;
-      cout << "diff user" << endl;
+      cout << "new user" << endl;
     }
 
     if (sameUser) // link that movie to all the other ones
@@ -216,6 +217,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv)
       userOtherRatings.empty()<<endl;
     }
     prev = s;
+    prevUserId = userId;
   }
   // graph->computeEdgeAvgs();
   return true;
