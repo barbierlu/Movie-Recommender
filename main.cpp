@@ -263,7 +263,8 @@ void recommendMovie(MovieGraph * g)
   }
   int numSimRaters = 0;
   MovieVertex * rec = g->findSimilar(mv, &numSimRaters);
-  cout << "Recommended Movie: " << rec->title << endl;
+  cout << "Recommended Movie: " << rec->title <<
+  endl;
 }
 
 int askNumRatings()
@@ -293,6 +294,7 @@ int main(int argc, char * argv[])
   bool rv = processRatingsCSV(graph, &ratings, numRaters);
   if (rv == false) {graph->~MovieGraph(); return -1;}
   cout << "finished." << endl;
+  MovieVertex * mv;
   bool on = true;
   while(on)
   {
@@ -305,7 +307,9 @@ int main(int argc, char * argv[])
         graph->printMovieGraph();
         break;
       case 3:
-        graph->printEdges();
+        cout << "Enter Movie Title to see connections" << endl;
+        mv = graph->findMovieVertexTitle(getCinString());
+        graph->printEdges(mv);
         break;
       case 4:
         printStats(graph);
