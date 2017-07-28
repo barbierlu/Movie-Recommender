@@ -154,7 +154,6 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
 
   // other movies the user has rated
   vector<MovieVertex*> userOtherVertices;
-  vector<float> userOtherRatings;
 
   getline(*csv, s); // disregard first line
   // cout << "s:"<<s<<endl;
@@ -210,33 +209,24 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
       // cout<<"userOtherVertices Size: "<<userOtherVertices.size()<<endl;
       for (int i = 0; i < userOtherVertices.size(); i++)
       {
-        graph->insertMovieEdge(mv, rating,
-          userOtherVertices[i], userOtherRatings[i]);
+        graph->insertMovieEdge(mv, userOtherVertices[i]);
       }
       userOtherVertices.push_back(mv);
-      userOtherRatings.push_back(rating);
     }
     else
     { // delete vectors
       userOtherVertices.clear();
-      userOtherRatings.clear();
       // cout << "deleted vectors:"<<
       // userOtherVertices.empty()<<" "<<
       // userOtherRatings.empty()<<endl;
       if(rating == 5.0)
       {
         userOtherVertices.push_back(mv);
-        userOtherRatings.push_back(rating);
       }
     }
     prev = s;
     prevUserId = userId;
   }
-  graph->computeEdgeAvgs();
-  // for(int y = 0; y < userOtherVertices.size();y++)
-  // {
-  //   graph->printAdjs(userOtherVertices[y]);
-  // }
   return true;
 }
 
@@ -244,6 +234,10 @@ void printStats(MovieGraph * graph)
 {
   cout << "Number of Movies: " << graph->getNumMovies() << endl;
   cout << "Number of Edges: " << graph->getNumEdges() << endl;
+  cout << "Number of Ratings: " << graph->getNumRatings() << endl;
+  cout << "Number of Edges: " << graph->getNumEdges() << endl;
+
+
 }
 
 void printMovieInfo(MovieGraph * g)
