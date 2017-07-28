@@ -89,8 +89,8 @@ void MovieGraph::printMovieInfo(std::string title)
     std::cout << "Title: "<<mv->title<<std::endl;
     std::cout << "MovieID: " << mv->movieId << std::endl;
     std::cout << "5 star ratings: " << mv->totalNumRaters<<std::endl;
-    std::cout << "Linkings "<< mv->adj.size()<< " (total)" << std::endl;
-    std::cout << "Linkings above 2 mutual raters:" << std::endl;
+    std::cout << "5 star different movie Linkings: "<< mv->adj.size()<< std::endl;
+    std::cout << "5 star Linkings with more than 2 mutual raters below" << std::endl;
     for(int i = 0; i < mv->adj.size();i++) // print links to mv
     {
       if (mv->adj[i].adjNumRaters > 2)
@@ -165,8 +165,9 @@ void MovieGraph::printEdges(MovieVertex * mv)
   {
     if (mv->adj[i].adjNumRaters > 4)
     {
-      std::cout << mv->adj[i].mv->title << " "
-      << mv->adj[i].adjNumRaters << std::endl;
+      std::cout << mv->adj[i].mv->title << " ("
+      << mv->adj[i].adjNumRaters << ", 5 star raters)"
+      << std::endl;
     }
   }
 }
@@ -207,9 +208,10 @@ void MovieGraph::printMovieNotFound()
   std::cout << "Movie not found" << std::endl;
   std::cout << "Please refer to the Movies.csv file"
   << " for correct movie names. Note: do not inlude"
-  << " text in brackets and if a movie's title contains"
-  << " 'The' at the beginning, do not follow the .csv's"
-  << " convention of putting leading 'The' at the end of"
-  << " the title. Please place 'The' at the beginning."
+  << " the last date in parenthesis but do include"
+  << " all other info in paranthesis."
+  << " If a movie's title normally contains"
+  << " 'The' at the beginning, keep it in the natural order with"
+  << " 'The' at the beginning."
   << std::endl;
 }

@@ -59,7 +59,7 @@ int mainMenuSelect(void)
   Normally is 'Movies.csv' */
 void askMoviesCSV(ifstream * csv)
 {
-  cout << "Please enter the Movies.csv file:" << endl;
+  // cout << "Please enter the Movies.csv file:" << endl;
   // openFile(csv, getCinString());
   openFile(csv, "Movies.csv");
 }
@@ -68,7 +68,7 @@ void askMoviesCSV(ifstream * csv)
   Normally is 'Ratings.csv' */
 void askRatingsCSV(ifstream * csv)
 {
-  cout << "Please enter the Ratings.csv file:" << endl;
+  // cout << "Please enter the Ratings.csv file:" << endl;
   // openFile(csv, getCinString());
   openFile(csv, "Ratings.csv");
 }
@@ -191,7 +191,7 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
     {
       sameUser = false;
       if((userId % 1000) == 0)
-        cout << userId << " users analyzed"<< endl;
+        cout << "( "<< userId << " / "<< numRaters <<" )"<<" users analyzed"<< endl;
       graph->numUsers++;
       counter++;
     }
