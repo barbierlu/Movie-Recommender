@@ -64,6 +64,9 @@ public:
     mutual 5 star raters, recommends a movie based on this statistic*/
   MovieVertex * findSimilar(MovieVertex * mv, int * numSimRaters);
   unsigned long int numUsers;
+  /* Informs user that movie was not found and gives
+  information to guide proper title syntax */
+  void printMovieNotFound();
 private:
   std::vector<MovieVertex> vertices;
   unsigned long int numMovies;

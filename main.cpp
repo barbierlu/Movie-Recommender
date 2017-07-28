@@ -73,7 +73,7 @@ void displayHelp()
   << " 5 star ratings are considered. Recommendations are chosen based"
   << " on the greatest number of mutual 5 star ratings. For example, if"
   << " a user inputs 'Movie A' as their favorite movie and 100 people from"
-  << " the Ratings.csv file gave Movie A and Move B 5 stars and 30 people also"
+  << " the Ratings.csv file gave Movie A and Movie B 5 stars and 30 people also"
   << " gave Movie A and Movie C 5 stars, then the program would recommend"
   << " Movie B." << std::endl
   << "These large files can be downloaded from"
@@ -178,7 +178,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
     else
     {
       sameUser = false;
-      cout << "new user " << userId << endl;
+      if((userId % 1000) == 0)
+        cout << userId << " users analyzed"<< endl;
       graph->numUsers++;
       counter++;
     }
@@ -215,7 +216,9 @@ void printStats(MovieGraph * graph)
   cout << "Number of Movies: " << graph->getNumMovies() << endl;
   cout << "Number of Edges: " << graph->getNumEdges() << endl;
   cout << "Number of Ratings: " << graph->getNumRatings() << endl;
-  cout << "Highest Rated Movie: " << graph->getHighestRatedMovie() << endl;
+  MovieVertex * mv = graph->getHighestRatedMovie();
+  cout << "Highest Rated Movie: " << mv->title << " with "
+  <<  mv->totalNumRaters << " 5 stars."<< endl;
 }
 
 void printMovieInfo(MovieGraph * g)
@@ -230,7 +233,7 @@ void recommendMovie(MovieGraph * g)
   MovieVertex * mv = g->findMovieVertexTitle(getCinString());
   if(mv == nullptr)
   {
-    cout << "Movie not found" << endl;
+    g->printMovieNotFound();
     return;
   }
   int numSimRaters = 0;
@@ -243,7 +246,8 @@ void recommendMovie(MovieGraph * g)
 int askNumRatings()
 {
   cout << "Enter number of users to analyze (1 - 138493)"<<
-   "or enter 'all'" << endl;
+   " or enter 'all'" << endl;
+  cout << "'all' may take around 7min to analyze." << endl;
   string s = getCinString();
   if(s == "all")
     return 138493;
@@ -255,8 +259,7 @@ int askNumRatings()
 
 int main(int argc, char * argv[])
 {
-  if(argc != 1)
-    displayHelp();
+  displayHelp();
   ifstream ratings;
   ifstream movies;
   askMoviesCSV(&movies);
@@ -282,7 +285,10 @@ int main(int argc, char * argv[])
       case 3:
         cout << "Enter Movie Title to see its connections" << endl;
         mv = graph->findMovieVertexTitle(getCinString());
-        graph->printEdges(mv);
+        if (mv != nullptr)
+          graph->printEdges(mv);
+        else
+
         break;
       case 4:
         printStats(graph);

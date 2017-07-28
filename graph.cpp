@@ -82,9 +82,11 @@ void MovieGraph::printMovieInfo(std::string title)
   MovieVertex * mv = findMovieVertexTitle(title);
   if(mv != nullptr)
   {
-    std::cout << "Title:"<<mv->title<<" "<<mv->movieId<<std::endl;
+    std::cout << "Title: "<<mv->title<<std::endl;
+    std::cout << "MovieID: " << mv->movieId << std::endl;
     std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
-    std::cout << "Linkings: "<< mv->adj.size()<<std::endl;
+    std::cout << "Linkings "<< mv->adj.size()<< " (total)" << std::endl;
+    std::cout << "Linkings above 2 mutual raters:" << std::endl;
     for(int i = 0; i < mv->adj.size();i++)
     {
       if (mv->adj[i].adjNumRaters > 2)
@@ -96,7 +98,7 @@ void MovieGraph::printMovieInfo(std::string title)
     }
   }
   else
-    std::cout << "Movie not found" << std::endl;
+    printMovieNotFound();
 }
 
 void MovieGraph::printMovieGraph()
@@ -141,7 +143,7 @@ MovieVertex * MovieGraph::findMovieVertexTitle(std::string title)
 void MovieGraph::printEdges(MovieVertex * mv)
 {
   std::cout << mv->title << "'s Connections:" << std::endl;
-  std::cout << "Threshold of 5 common ratings of 5 stars" << std::endl;
+  std::cout << "Threshold of 5 muutal ratings of 5 stars" << std::endl;
   for(int i = 0; i < mv->adj.size();i++)
   {
     if (mv->adj[i].adjNumRaters > 4)
@@ -181,4 +183,16 @@ MovieVertex * MovieGraph::getHighestRatedMovie()
       id = i;
   }
   return &(vertices[id]);
+}
+
+void MovieGraph::printMovieNotFound()
+{
+  std::cout << "Movie not found" << std::endl;
+  std::cout << "Please refer to the Movies.csv file"
+  << " for correct movie names. Note: do not inlude"
+  << " text in brackets and if a movie's title contains"
+  << " 'The' at the beginning, do not follow the .csv's"
+  << " convention of putting leading 'The' at the end of"
+  << " the title. Please place 'The' at the beginning."
+  << std::endl;
 }
