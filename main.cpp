@@ -9,16 +9,17 @@
 #include "graph.hpp"
 using namespace std;
 
+
+// Concatenation technique to get multiword cin strings
 std::string getCinString()
 {
-  // Concatenation technique to get multiword cin strings
   std::string str1, str2;
   cin >> str1;
   getline(cin, str2);
   return str1 + str2;
 }
 
-
+/* Returns through reference IO stream of input string */
 bool openFile(ifstream * in, string txt)
 {
   in->open(txt);
@@ -31,6 +32,7 @@ bool openFile(ifstream * in, string txt)
   return true;
 }
 
+/* Prints main menu and returns user's selection */
 int mainMenuSelect(void)
 {
   int sel = 0;
@@ -52,6 +54,9 @@ int mainMenuSelect(void)
   }
 }
 
+
+/* Asks user to input .csv file containing movie definitions
+  Normally is 'Movies.csv' */
 void askMoviesCSV(ifstream * csv)
 {
   cout << "Please enter the Movies.csv file:" << endl;
@@ -59,6 +64,8 @@ void askMoviesCSV(ifstream * csv)
   openFile(csv, "Movies.csv");
 }
 
+/* Asks user to input .csv file containing ratings info
+  Normally is 'Ratings.csv' */
 void askRatingsCSV(ifstream * csv)
 {
   cout << "Please enter the Ratings.csv file:" << endl;
@@ -66,9 +73,10 @@ void askRatingsCSV(ifstream * csv)
   openFile(csv, "Ratings.csv");
 }
 
+/* Welcome screen, displays basic info about program functionality. */
 void displayHelp()
 {
-  cout << "This program recommends movies by analyzing significant data"
+  cout << "Welcome! This program recommends movies by analyzing significant data"
   << " in the form of two files 'Movies.csv' and 'Ratings.csv'. Only"
   << " 5 star ratings are considered. Recommendations are chosen based"
   << " on the greatest number of mutual 5 star ratings. For example, if"
@@ -81,7 +89,8 @@ void displayHelp()
   << ". Please read the README for more information." << std::endl << std::endl;
 }
 
-// function that moves 'The' to the front of the movie's title
+/* Returns string with 'The' moved from back of string
+  to the front, if 'The' is present in the string */
 string alterTitleThe(string orig)
 {
   if(orig.size() < 4) // check if too short for 'The'
@@ -100,6 +109,7 @@ string alterTitleThe(string orig)
     return orig;
 }
 
+/* Processes the movie definition file, creates the vertices in the graph*/
 void processMoviesCSV(MovieGraph * graph, ifstream * csv)
 {
   string s,s1,s2, prev="";
@@ -133,6 +143,8 @@ void processMoviesCSV(MovieGraph * graph, ifstream * csv)
   }
 }
 
+/* Processes the ratings info file, creates the edges in the graph
+using only mutual ratings, where each movie is rated by one user to be a 5.0 */
 bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
 {
   int counter = 0;
@@ -211,6 +223,8 @@ bool processRatingsCSV(MovieGraph * graph, ifstream * csv, int numRaters)
   return true;
 }
 
+
+/* Prints statistics regarding the outline of the graph */
 void printStats(MovieGraph * graph)
 {
   cout << "Number of Movies: " << graph->getNumMovies() << endl;
@@ -221,12 +235,16 @@ void printStats(MovieGraph * graph)
   <<  mv->totalNumRaters << " 5 stars."<< endl;
 }
 
+/* Prints the title, number of 5 star ratings, and
+all of the adjacent graph vertices movies */
 void printMovieInfo(MovieGraph * g)
 {
   cout << "Enter Movie Title" << endl;
   g->printMovieInfo(getCinString());
 }
 
+/* Runs the algorithm to calculate the most similar vertex
+to the inputed movie */
 void recommendMovie(MovieGraph * g)
 {
   cout << "Enter your favorite movie" << endl;
@@ -250,6 +268,8 @@ void recommendMovie(MovieGraph * g)
   }
 }
 
+/* Prompts user for the number of users to analyze in the
+ratings info file */
 int askNumRatings()
 {
   cout << "Enter number of users to analyze (1 - 138493)"<<
