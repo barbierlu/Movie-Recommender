@@ -217,7 +217,7 @@ void printStats(MovieGraph * graph)
   cout << "Number of Edges: " << graph->getNumEdges() << endl;
   cout << "Number of Ratings: " << graph->getNumRatings() << endl;
   MovieVertex * mv = graph->getHighestRatedMovie();
-  cout << "Highest Rated Movie: " << mv->title << " with "
+  cout << "Highest Rated Movie: " << mv->title << ", with "
   <<  mv->totalNumRaters << " 5 stars."<< endl;
 }
 
@@ -238,9 +238,16 @@ void recommendMovie(MovieGraph * g)
   }
   int numSimRaters = 0;
   MovieVertex * rec = g->findSimilar(mv, &numSimRaters);
-  cout << "Recommended Movie: " << rec->title <<
-  ", number of common 5 star ratings: "<< numSimRaters
-  << endl;
+  if (rec == nullptr)
+  {
+    cout << "No mutual 5 star movies found." << endl;
+  }
+  else
+  {
+    cout << "Recommended Movie: " << rec->title <<
+    ", number of common 5 star ratings: "<< numSimRaters
+    << endl;
+  }
 }
 
 int askNumRatings()

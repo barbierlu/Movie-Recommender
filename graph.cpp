@@ -84,7 +84,7 @@ void MovieGraph::printMovieInfo(std::string title)
   {
     std::cout << "Title: "<<mv->title<<std::endl;
     std::cout << "MovieID: " << mv->movieId << std::endl;
-    std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
+    std::cout << "5 star ratings: " << mv->totalNumRaters<<std::endl;
     std::cout << "Linkings "<< mv->adj.size()<< " (total)" << std::endl;
     std::cout << "Linkings above 2 mutual raters:" << std::endl;
     for(int i = 0; i < mv->adj.size();i++)
@@ -92,7 +92,7 @@ void MovieGraph::printMovieInfo(std::string title)
       if (mv->adj[i].adjNumRaters > 2)
       {
         std::cout << mv->adj[i].mv->title <<
-        " (N: " << mv->adj[i].adjNumRaters << ")"
+        " (" << mv->adj[i].adjNumRaters << " mutual)"
         <<std::endl;
       }
     }
