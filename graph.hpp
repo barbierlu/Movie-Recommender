@@ -10,15 +10,13 @@ typedef struct AdjMovieVertex AdjMovieVertex;
 struct MovieVertex{
   std::string title;
   int totalNumRaters;
-  float totalRatings;
-  float totalAvgRating;
   int movieId;
   std::vector<AdjMovieVertex> adj;
   MovieVertex(std::string _title, int _movieId)
   {
     title = _title;
     movieId = _movieId;
-    totalAvgRating = totalNumRaters = totalRatings = 0;
+    totalNumRaters = 0;
   }
 };
 
@@ -41,6 +39,7 @@ public:
   unsigned long int getNumMovies();
   unsigned long int getNumEdges();
   unsigned long int getNumRatings();
+  MovieVertex * getHighestRatedMovie();
   void computeEdgeAvgs();
   void printMovieInfo(std::string title);
   void printAdjs(MovieVertex * mv);

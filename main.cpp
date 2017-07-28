@@ -38,9 +38,9 @@ int mainMenuSelect(void)
   {
     std::cout << "======Main Menu======" << std::endl;
     std::cout << "1. Recommend a movie" << std::endl;
-    std::cout << "2. Print movie list" << std::endl;
+    std::cout << "2. Print all movies" << std::endl;
     std::cout << "3. Print a movie's connections" << std::endl;
-    std::cout << "4. See statistics" << std::endl;
+    std::cout << "4. See list's statistics" << std::endl;
       // Num raters, num movies, avg rating,
     std::cout << "5. See a movie's info" << std::endl;
     std::cout << "6. Quit" << std::endl;

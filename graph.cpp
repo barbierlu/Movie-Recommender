@@ -183,3 +183,15 @@ unsigned long int MovieGraph::getNumRatings()
 {
   return totalNumRatings;
 }
+
+MovieVertex * MovieGraph::getHighestRatedMovie()
+{
+  if (vertices.size() == 0) return nullptr;
+  int id = 0;
+  for (unsigned int i = 0; i < vertices.size();i++)
+  {
+    if(vertices[i].totalNumRaters > vertices[id].totalNumRaters)
+      id = i;
+  }
+  return &(vertices[id]);
+}
