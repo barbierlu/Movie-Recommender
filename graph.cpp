@@ -24,15 +24,11 @@ void MovieGraph::insertMovieVertex(std::string title, int id)
 {
   MovieVertex mv(title, id);
   vertices.push_back(mv);
-  // std::cout << title << ". Added" << std::endl;
   numMovies++;
 }
 
 void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
 {
-  // std::cout << "insertingEdge" << std::endl;
-  // std::cout << "mv1:"<<mv1->title<<std::endl;
-  // std::cout << "mv2:"<<mv2->title<<std::endl;
   // rating 1 is a new rating
   totalNumRatings++;
 
@@ -53,27 +49,18 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
   }
   if (found == true) // edge already exists
   {
-    // add to the edges
-    // std::cout << "edge already exists"<<std::endl;
     (mv1->adj[i].adjNumRaters)++;
     (mv2->adj[j].adjNumRaters)++;
   }
   else // make the new edge
   {
-    // std::cout << "Creating New Edges" << std::endl;
     AdjMovieVertex adj1, adj2;
     adj1.mv = mv2;
     adj1.adjNumRaters = 1;
     adj2.mv = mv1;
     adj2.adjNumRaters = 1;
-    // std::cout << mv1->title<<" empty? " << mv1->adj.empty() << std::endl;
-    // std::cout << mv2->title<<" empty? " << mv2->adj.empty() << std::endl;
     mv1->adj.push_back(adj1);
     mv2->adj.push_back(adj2);
-    // std::cout << mv1->title << " linked: "<<mv1->adj.back().mv->title << std::endl;
-    // std::cout << mv2->title << " linked: "<<mv2->adj.back().mv->title << std::endl;
-    // if(mv1->adj.size() == 1)
-    //   std::cout << mv1->title << " first adj:" << mv1->adj[0].mv->title << std::endl;
     numEdges++;
   }
 
