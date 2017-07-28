@@ -49,7 +49,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
       break;
     }
   }
-  if (found == true) // edge already exists
+  if (found) // edge already exists
   {
     (mv1->adj[i].adjNumRaters)++;
     (mv2->adj[j].adjNumRaters)++;
