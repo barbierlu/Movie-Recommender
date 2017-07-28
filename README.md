@@ -2,7 +2,7 @@
 **Author: Luke Barbier**
 
 ## Summary
-This program analyzes data provided from MovieLens.com. The free public data contains over 2 million ratings from over 138,000 users. A graph exists where each movie is a node, connected to other nodes with the edges being weighted by the number of users who gave both movies a 5 star rating. The program will be able to recommend movies given a user of the program's interests. When a user of the program specifies their favorite movie, the program will find that movie in the graph and search the edges for the adjacent node with number of mutual 5 star raters. It will therefore be able to recommend movies based on the fact that people have preferences for genres and similarities between movies. Data structures used in this program are graph (MovieGraph) and an array (userOtherVertices).
+This program analyzes data provided from MovieLens.com. The free public data contains over 2 million ratings from over 138,000 users. The program generates a graph where each movie is a vertex, connected to other adjacent vertices with the edges being weighted by the number of users who gave both movies a 5 star rating. The program will be able to recommend movies given a user of the program's interests. When a user of the program specifies their favorite movie, the program will find that movie in the graph and search the edges for the adjacent vertex with the highest number of mutual 5 star raters. It will therefore be able to recommend movies based on the fact that people have preferences for genres and similarities between movies. Data structures used in this program are graphes (MovieGraph) and arrays (userOtherVertices).
 
 ## How to Run
 - $ chmod +x MakeRatings.sh
