@@ -38,14 +38,13 @@ public:
   void insertMovieVertex(std::string title, int id);
   /* Insert an edge into the graph */
   void insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2);
-  /* find a vertex using its id */
-  MovieVertex * findMovieVertexId(int id);
-  /* find a vertex using its title */
-  MovieVertex * findMovieVertexTitle(std::string title);
+  /* Prints all of the adjacent vertices */
+  void printAdjs(MovieVertex * mv);
+  /* Prints the title, number of 5 star ratings, and all
+    of the adjacent graph vertices */
+  void printMovieInfo(std::string title);
   /* print each vertice's id and title */
   void printMovieGraph();
-  /* print a vertice's edges and the number of raters in each edge*/
-  void printEdges(MovieVertex * mv);
   /* Returns the number of movies in the graph */
   unsigned long int getNumMovies();
   /* Returns the total number of edges created
@@ -53,20 +52,21 @@ public:
   unsigned long int getNumEdges();
   /* Returns the number of 5 star ratings */
   unsigned long int getNumRatings();
-  /* Returns the higest rated movie */
-  MovieVertex * getHighestRatedMovie();
-  /* Prints the title, number of 5 star ratings, and all
-      of the adjacent graph vertices */
-  void printMovieInfo(std::string title);
-  /* Prints all of the adjacent vertices */
-  void printAdjs(MovieVertex * mv);
+  /* find a vertex using its id */
+  MovieVertex * findMovieVertexId(int id);
+  /* find a vertex using its title */
+  MovieVertex * findMovieVertexTitle(std::string title);
+  /* print a vertice's edges and the number of raters in each edge*/
+  void printEdges(MovieVertex * mv);
   /* Finds the adjacent vertex with the higest number of
     mutual 5 star raters, recommends a movie based on this statistic*/
   MovieVertex * findSimilar(MovieVertex * mv, int * numSimRaters);
-  unsigned long int numUsers;
+  /* Returns the higest rated movie */
+  MovieVertex * getHighestRatedMovie();
   /* Informs user that movie was not found and gives
   information to guide proper title syntax */
   void printMovieNotFound();
+  unsigned long int numUsers;
 private:
   std::vector<MovieVertex> vertices;
   unsigned long int numMovies;

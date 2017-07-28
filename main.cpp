@@ -254,7 +254,7 @@ int askNumRatings()
 {
   cout << "Enter number of users to analyze (1 - 138493)"<<
    " or enter 'all'" << endl;
-  cout << "'all' may take around 7min to analyze." << endl;
+  cout << "'all' may take around 7min." << endl;
   string s = getCinString();
   if(s == "all")
     return 138493;

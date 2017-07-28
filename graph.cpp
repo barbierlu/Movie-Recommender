@@ -20,13 +20,15 @@ MovieGraph::~MovieGraph()
   std::cout << "Graph Deleted" << std::endl;
 }
 
+/* Insert a vertex into the graph */
 void MovieGraph::insertMovieVertex(std::string title, int id)
 {
-  MovieVertex mv(title, id);
+  MovieVertex mv(title, id); // make a temp copy to add to vector
   vertices.push_back(mv);
   numMovies++;
 }
 
+/* Insert an edge into the graph */
 void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
 {
   // rating 1 is a new rating
@@ -54,7 +56,7 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
   }
   else // make the new edge
   {
-    AdjMovieVertex adj1, adj2;
+    AdjMovieVertex adj1, adj2; // temp copies to add to vector
     adj1.mv = mv2;
     adj1.adjNumRaters = 1;
     adj2.mv = mv1;
@@ -63,9 +65,9 @@ void MovieGraph::insertMovieEdge(MovieVertex * mv1, MovieVertex * mv2)
     mv2->adj.push_back(adj2);
     numEdges++;
   }
-
 }
 
+/* Prints all of the adjacent vertices */
 void MovieGraph::printAdjs(MovieVertex * mv)
 {
   std::cout << "**Printing Linkages of " << mv->title <<
@@ -77,6 +79,8 @@ void MovieGraph::printAdjs(MovieVertex * mv)
   std::cout << "Ending linkage printing**"<<std::endl;
 }
 
+/* Prints the title, number of 5 star ratings, and all
+  of the adjacent graph vertices */
 void MovieGraph::printMovieInfo(std::string title)
 {
   MovieVertex * mv = findMovieVertexTitle(title);
@@ -87,7 +91,7 @@ void MovieGraph::printMovieInfo(std::string title)
     std::cout << "5 star ratings: " << mv->totalNumRaters<<std::endl;
     std::cout << "Linkings "<< mv->adj.size()<< " (total)" << std::endl;
     std::cout << "Linkings above 2 mutual raters:" << std::endl;
-    for(int i = 0; i < mv->adj.size();i++)
+    for(int i = 0; i < mv->adj.size();i++) // print links to mv
     {
       if (mv->adj[i].adjNumRaters > 2)
       {
@@ -101,6 +105,7 @@ void MovieGraph::printMovieInfo(std::string title)
     printMovieNotFound();
 }
 
+/* print each vertice's id and title */
 void MovieGraph::printMovieGraph()
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -110,16 +115,26 @@ void MovieGraph::printMovieGraph()
   }
 }
 
+/* Returns the number of movies in the graph */
 unsigned long int MovieGraph::getNumMovies()
 {
   return numMovies;
 }
 
+/* Returns the total number of edges created
+    does not include additional ratings along ond edge */
 unsigned long int MovieGraph::getNumEdges()
 {
   return numEdges;
 }
 
+/* Returns the number of 5 star ratings */
+unsigned long int MovieGraph::getNumRatings()
+{
+  return totalNumRatings;
+}
+
+/* find a vertex using its id */
 MovieVertex * MovieGraph::findMovieVertexId(int id)
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -130,6 +145,7 @@ MovieVertex * MovieGraph::findMovieVertexId(int id)
   return nullptr;
 }
 
+/* find a vertex using its title */
 MovieVertex * MovieGraph::findMovieVertexTitle(std::string title)
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -140,6 +156,7 @@ MovieVertex * MovieGraph::findMovieVertexTitle(std::string title)
   return nullptr;
 }
 
+/* print a vertice's edges and the number of raters in each edge*/
 void MovieGraph::printEdges(MovieVertex * mv)
 {
   std::cout << mv->title << "'s Connections:" << std::endl;
@@ -154,11 +171,13 @@ void MovieGraph::printEdges(MovieVertex * mv)
   }
 }
 
+/* Finds the adjacent vertex with the higest number of
+  mutual 5 star raters, recommends a movie based on this statistic*/
 MovieVertex * MovieGraph::findSimilar(MovieVertex * mv, int * numSimRaters)
 {
   if(mv->adj.size() == 0) return nullptr;
 
-  int hI = 0; // Index of largest number of raters
+  int hI = 0; // highest index, index of largest number of raters
   for (int i = 0; i < mv->adj.size(); i++)
   {
     if(mv->adj[i].adjNumRaters > mv->adj[hI].adjNumRaters)
@@ -168,11 +187,7 @@ MovieVertex * MovieGraph::findSimilar(MovieVertex * mv, int * numSimRaters)
   return mv->adj[hI].mv;
 }
 
-unsigned long int MovieGraph::getNumRatings()
-{
-  return totalNumRatings;
-}
-
+/* Returns the higest rated movie */
 MovieVertex * MovieGraph::getHighestRatedMovie()
 {
   if (vertices.size() == 0) return nullptr;
@@ -185,6 +200,8 @@ MovieVertex * MovieGraph::getHighestRatedMovie()
   return &(vertices[id]);
 }
 
+/* Informs user that movie was not found and gives
+information to guide proper title syntax */
 void MovieGraph::printMovieNotFound()
 {
   std::cout << "Movie not found" << std::endl;
