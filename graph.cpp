@@ -168,7 +168,7 @@ MovieVertex * MovieGraph::findSimilar(MovieVertex * mv, int * numSimRaters)
   int hI = 0; // Index of largest number of raters
   for (int i = 0; i < mv->adj.size(); i++)
   {
-    if(mv->adj[hI].adjNumRaters > mv->adj[i].adjNumRaters)
+    if(mv->adj[i].adjNumRaters > mv->adj[hI].adjNumRaters)
       hI = i;
   }
   *numSimRaters = mv->adj[hI].adjNumRaters;

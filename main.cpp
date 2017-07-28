@@ -235,9 +235,6 @@ void printStats(MovieGraph * graph)
   cout << "Number of Movies: " << graph->getNumMovies() << endl;
   cout << "Number of Edges: " << graph->getNumEdges() << endl;
   cout << "Number of Ratings: " << graph->getNumRatings() << endl;
-  cout << "Number of Edges: " << graph->getNumEdges() << endl;
-
-
 }
 
 void printMovieInfo(MovieGraph * g)
