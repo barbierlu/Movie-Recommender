@@ -69,10 +69,16 @@ void askRatingsCSV(ifstream * csv)
 void displayHelp()
 {
   cout << "This program recommends movies by analyzing significant data"
-  << " in the form of two files 'Movies.csv' and 'Ratings.csv'. These large"
-  << " files can be downloaded from https://grouplens.org/datasets/movielens/"
-  << ". Simply enter a movie to receive a recommendation with the information"
-  << " regarding the recommended movie." << endl;
+  << " in the form of two files 'Movies.csv' and 'Ratings.csv'. Only"
+  << " 5 star ratings are considered. Recommendations are chosen based"
+  << " on the greatest number of mutual 5 star ratings. For example, if"
+  << " a user inputs 'Movie A' as their favorite movie and 100 people from"
+  << " the Ratings.csv file gave Movie A and Move B 5 stars and 30 people also"
+  << " gave Movie A and Movie C 5 stars, then the program would recommend"
+  << " Movie B." << std::endl
+  << "These large files can be downloaded from"
+  << " https://grouplens.org/datasets/movielens/"
+  << ". Please read the README for more information." << std::endl << std::endl;
 }
 
 // function that moves 'The' to the front of the movie's title
@@ -85,12 +91,9 @@ string alterTitleThe(string orig)
       orig.at(orig.size()-2) == 'h' &&
       orig.at(orig.size()-1) == 'e')
   {
-    // cout << "has The!" << endl;
     size_t pos = orig.rfind('T');
     string check = orig.substr(0, pos-2);
-    // cout <<"check:"<< check << "." << endl;
     string concat = "The " + check;
-    // cout <<"concat:"<<concat<<"."<<endl;
     return concat;
   }
   else
