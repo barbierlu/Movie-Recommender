@@ -7,6 +7,8 @@
 
 typedef struct AdjMovieVertex AdjMovieVertex;
 
+/* Graph vertex that includes title, movieId and vertex's
+  adjacent vertices */
 struct MovieVertex{
   std::string title;
   int totalNumRaters;
@@ -20,6 +22,8 @@ struct MovieVertex{
   }
 };
 
+/* Vertex's edge with another vertex
+    Weight is the number of mutual 5 star raters */
 struct AdjMovieVertex{
   MovieVertex * mv;
   int adjNumRaters;
