@@ -264,7 +264,8 @@ void recommendMovie(MovieGraph * g)
   int numSimRaters = 0;
   MovieVertex * rec = g->findSimilar(mv, &numSimRaters);
   cout << "Recommended Movie: " << rec->title <<
-  endl;
+  ", number of Common 5 star ratings: "<< numSimRaters
+  << endl;
 }
 
 int askNumRatings()
