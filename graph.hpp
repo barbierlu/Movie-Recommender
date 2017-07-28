@@ -47,7 +47,7 @@ public:
   void printMovieInfo(std::string title);
   void printAdjs(MovieVertex * mv);
   unsigned long int numUsers;
-  MovieVertex * findSimilar(MovieVertex * mv);
+  MovieVertex * findSimilar(MovieVertex * mv, int * numSimRaters);
 private:
   std::vector<MovieVertex> vertices;
   unsigned long int numMovies;

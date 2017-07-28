@@ -120,21 +120,26 @@ void MovieGraph::computeEdgeAvgs()
 void MovieGraph::printMovieInfo(std::string title)
 {
   MovieVertex * mv = findMovieVertexTitle(title);
-  std::cout << "Title:"<<mv->title<<" "<<mv->movieId<<std::endl;
-  std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
-  std::cout << "totalRatings: " << mv->totalRatings<<std::endl;
-  std::cout << "totalAvgRating: " << mv->totalAvgRating<<std::endl;
-  std::cout << "Linkings: "<< mv->adj.size()<<std::endl;
-  for(int i = 0; i < mv->adj.size();i++)
+  if(mv != nullptr)
   {
-    if (mv->adj[i].adjNumRaters > 2)
+    std::cout << "Title:"<<mv->title<<" "<<mv->movieId<<std::endl;
+    std::cout << "totalNumRaters: " << mv->totalNumRaters<<std::endl;
+    std::cout << "totalRatings: " << mv->totalRatings<<std::endl;
+    std::cout << "totalAvgRating: " << mv->totalAvgRating<<std::endl;
+    std::cout << "Linkings: "<< mv->adj.size()<<std::endl;
+    for(int i = 0; i < mv->adj.size();i++)
     {
-      std::cout << mv->adj[i].mv->title <<
-      " (N:" << mv->adj[i].adjNumRaters <<
-      " R:" << mv->adj[i].adjRatings <<
-      " A:" << mv->adj[i].adjAvgRating << ")"<<std::endl;
+      if (mv->adj[i].adjNumRaters > 2)
+      {
+        std::cout << mv->adj[i].mv->title <<
+        " (N:" << mv->adj[i].adjNumRaters <<
+        " R:" << mv->adj[i].adjRatings <<
+        " A:" << mv->adj[i].adjAvgRating << ")"<<std::endl;
+      }
     }
   }
+  else
+    std::cout << "Movie not found" << std::endl;
 }
 
 void MovieGraph::printMovieGraph()
@@ -191,7 +196,7 @@ void MovieGraph::printEdges()
   }
 }
 
-MovieVertex * MovieGraph::findSimilar(MovieVertex * mv)
+MovieVertex * MovieGraph::findSimilar(MovieVertex * mv, int * numSimRaters)
 {
   if(mv->adj.size() == 0) return nullptr;
 
@@ -201,5 +206,6 @@ MovieVertex * MovieGraph::findSimilar(MovieVertex * mv)
     if(mv->adj[hI].adjNumRaters > mv->adj[i].adjNumRaters)
       hI = i;
   }
+  *numSimRaters = mv->adj[hI].adjNumRaters;
   return mv->adj[hI].mv;
 }

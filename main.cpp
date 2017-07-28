@@ -261,7 +261,8 @@ void recommendMovie(MovieGraph * g)
     cout << "Movie not found" << endl;
     return;
   }
-  MovieVertex * rec = g->findSimilar(mv);
+  int numSimRaters = 0;
+  MovieVertex * rec = g->findSimilar(mv, &numSimRaters);
   cout << "Recommended Movie: " << rec->title << endl;
 }
 
