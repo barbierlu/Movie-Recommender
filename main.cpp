@@ -39,7 +39,7 @@ int mainMenuSelect(void)
     std::cout << "======Main Menu======" << std::endl;
     std::cout << "1. Recommend a movie" << std::endl;
     std::cout << "2. Print movie list" << std::endl;
-    std::cout << "3. Print connection list" << std::endl;
+    std::cout << "3. Print a movie's connections" << std::endl;
     std::cout << "4. See statistics" << std::endl;
       // Num raters, num movies, avg rating,
     std::cout << "5. See a movie's info" << std::endl;
@@ -255,7 +255,7 @@ void recommendMovie(MovieGraph * g)
   int numSimRaters = 0;
   MovieVertex * rec = g->findSimilar(mv, &numSimRaters);
   cout << "Recommended Movie: " << rec->title <<
-  ", number of Common 5 star ratings: "<< numSimRaters
+  ", number of common 5 star ratings: "<< numSimRaters
   << endl;
 }
 
@@ -299,7 +299,7 @@ int main(int argc, char * argv[])
         graph->printMovieGraph();
         break;
       case 3:
-        cout << "Enter Movie Title to see connections" << endl;
+        cout << "Enter Movie Title to see its connections" << endl;
         mv = graph->findMovieVertexTitle(getCinString());
         graph->printEdges(mv);
         break;

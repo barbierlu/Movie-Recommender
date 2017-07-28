@@ -154,10 +154,14 @@ MovieVertex * MovieGraph::findMovieVertexTitle(std::string title)
 void MovieGraph::printEdges(MovieVertex * mv)
 {
   std::cout << mv->title << "'s Connections:" << std::endl;
+  std::cout << "Threshold of 5 common ratings of 5 stars" << std::endl;
   for(int i = 0; i < mv->adj.size();i++)
   {
-    std::cout << mv->adj[i].mv->title << " "
-    << mv->adj[i].adjNumRaters << std::endl;
+    if (mv->adj[i].adjNumRaters > 4)
+    {
+      std::cout << mv->adj[i].mv->title << " "
+      << mv->adj[i].adjNumRaters << std::endl;
+    }
   }
 }
 
