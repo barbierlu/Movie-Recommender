@@ -315,7 +315,7 @@ int main(int argc, char * argv[])
         if (mv != nullptr)
           graph->printEdges(mv);
         else
-
+          graph->printMovieNotFound();
         break;
       case 4:
         printStats(graph);
